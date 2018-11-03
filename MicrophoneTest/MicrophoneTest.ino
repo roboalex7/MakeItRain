@@ -15,7 +15,7 @@ void setup()
 
 int findMaxAmplitude(int period)
 {
-  int startTime = millis();
+  unsigned long startTime = millis();
   int maxReading = 0;
   int minReading = 1023;
   
