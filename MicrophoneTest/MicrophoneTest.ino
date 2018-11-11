@@ -47,17 +47,17 @@ int findMaxAmplitude(int period)
 void printData(int value1, int value2)
 {
   //Print the desired value(s)
-  Serial.print(value1); 
-  Serial.print(",");
+  Serial.println(value1); 
+  //Serial.print(",");
   //Serial.print(value2);
   //Serial.print(",");
   //Print the ground state
   //Serial.print(groundState); 
   //Serial.print(",");
   //Force upper and lower bounds to prevent autoscaling
-  Serial.print(maxVal);
-  Serial.print(",");
-  Serial.println(minVal);
+  //Serial.print(maxVal);
+  //Serial.print(",");
+  //Serial.println(minVal);
 }
 
 
