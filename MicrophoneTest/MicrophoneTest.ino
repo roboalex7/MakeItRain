@@ -17,7 +17,7 @@ int sampleWindow = 0;
 
 void setup() 
 {
-  Serial.begin(250000);
+  Serial.begin(9600);
 }
 
 

@@ -15,8 +15,8 @@ s.baud = 9600
 s.timeout = 2
 s.open()
 
-#keyIn = 'f'
-#switch = True
+print("\nPress ENTER to begin collecting data\n")
+input()
 
 with s as ser:
     with open('micInput.txt', 'wb') as micInput:
@@ -37,8 +37,6 @@ with s as ser:
 
 x = []
 y = []
-
-#t = []
 
 with open('micInput.txt','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
