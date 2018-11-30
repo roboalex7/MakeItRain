@@ -40,21 +40,12 @@ y = []
 
 with open('micInput.txt','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
-##    i = 1
-##    maxRead = 0
-##    for row in plots:
-##        if i < 1000:
-##            x.append(i)
-##            y.append(int(row[0]))
-##            if int(row[0]) > maxRead:
-##                maxRead = int(row[0])
-##                print(i, ',', row[0])
-##        i += 1
     i = 1
     for row in plots:
-        x.append(i)
-        y.append(int(row[0]))
-        i += 1
+        if int(row[0]) < 1024 and int(row[0]) >= 0: #filter out file write errors
+            x.append(i)
+            y.append(int(row[0]))
+            i += 1
             
 plt.figure(1)
 plt.plot(x,y, label='Microphone Output')
@@ -75,4 +66,16 @@ plt.figure(2)
 plt.plot(x,transformY, label='FFT of Microphone Output')
 plt.title('FFT of Microphone Output')
 plt.legend()
+
+
+a = []
+f = []
+for i in range (0,100):
+    a.append(i)
+    f.append(transformY[i])
+    
+plt.figure(3)
+plt.plot(a, f, label='FFT of Microphone Output')
+plt.title('Low frequency FFT')
 plt.show()
+
