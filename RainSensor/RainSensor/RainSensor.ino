@@ -1,15 +1,19 @@
 int sensorValue = 0;
+
 const int thresh = 450;
 const int sampleWindow = 10;
-const int wait = 5;
 const int samples = 1000;
 
 int data[samples];
+
+
 
 void setup() 
 {
   Serial.begin(9600);
 }
+
+
 
 void printData(int input[])
 {
@@ -20,6 +24,8 @@ void printData(int input[])
   }
    Serial.println(' ');
 }
+
+
 
 int countDrops(int input[])
 {
@@ -36,7 +42,9 @@ int countDrops(int input[])
           //Serial.println("Duplicate Point Detected");
           duplicate = true;
         }
+        
       }
+      
       if (!duplicate)
         drops++;
     }
@@ -45,19 +53,35 @@ int countDrops(int input[])
 }
 
 
+
 float dropsToIntensity(int drops)
 {
   float volume = drops / 28.5;
-  Serial.print("Volume = ");
-  Serial.println(volume);
   float depth = volume / 35.91; //Area of sensor in cm^2
-  Serial.print("Depth = ");
-  Serial.println(depth);
   float rate = (depth * 360);
+  
   Serial.print("Rate = ");
   Serial.print(rate);
   Serial.println("cm/hr");
+  
+  return rate;
 }
+
+
+
+void relativeIntensity(float intensity)
+{
+  if (intensity == 0)
+    Serial.println("No rain detected");
+  else if (intensity < 0.25)
+    Serial.println("Light rain detected");
+  else if (intensity >= 0.25 && intensity <= 0.76)
+    Serial.println("Moderate rain detected");
+  else if (intensity > 0.76)
+    Serial.println("Heavy rain detected");
+  else return;
+}
+
 
 
 void loop() 
@@ -69,15 +93,17 @@ void loop()
     for (int i = 0; i < samples; i++)
     {
       data[i] = analogRead(0); 
-      delay(wait);
+      delay(5);
     }
-    //printData(data);
-    //Serial.print(j);
-    //Serial.print("-Drops: ");
-    //Serial.println(countDrops(data));
+    
     total += countDrops(data);
   }
+  
   Serial.print("Total Drops:");
   Serial.println(total);
-  dropsToIntensity(total);
+  
+  float intensity = dropsToIntensity(total);
+  relativeIntensity(intensity);
+  
+  Serial.println(' ');
 }
