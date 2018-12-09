@@ -57,8 +57,8 @@ int countDrops(int input[])
 float dropsToIntensity(int drops)
 {
   float volume = drops / 28.5;
-  float depth = volume / 35.91; //Area of sensor in cm^2
-  float rate = (depth * 360);
+  float depth = volume / 89.662; //Area of sensor in cm^2
+  float rate = (depth * 3600 / sampleWindow);
   
   Serial.print("Rate = ");
   Serial.print(rate);
